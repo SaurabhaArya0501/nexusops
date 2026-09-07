@@ -12,23 +12,25 @@
           <li class="ticket-card">
             <span class="ticket-card__title">{{ ticket.title }}</span>
 
-            @switch (ticket.status) {
-              @case ('open') {
-                <span class="badge badge--open">Open</span>
+            <span class="ticket-card__status">
+              @switch (ticket.status) {
+                @case ('open') {
+                  <span class="badge badge--open">Open</span>
+                }
+                @case ('assigned') {
+                  <span class="badge badge--assigned">Assigned</span>
+                }
+                @case ('in-progress') {
+                  <span class="badge badge--in-progress">In Progress</span>
+                }
+                @case ('resolved') {
+                  <span class="badge badge--resolved">Resolved</span>
+                }
+                @case ('closed') {
+                  <span class="badge badge--closed">Closed</span>
+                }
               }
-              @case ('assigned') {
-                <span class="badge badge--assigned">Assigned</span>
-              }
-              @case ('in-progress') {
-                <span class="badge badge--in-progress">In Progress</span>
-              }
-              @case ('resolved') {
-                <span class="badge badge--resolved">Resolved</span>
-              }
-              @case ('closed') {
-                <span class="badge badge--closed">Closed</span>
-              }
-            }
+            </span>
 
             @if (
               ticket.status === 'assigned' ||
