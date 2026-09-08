@@ -2,10 +2,8 @@
   <header class="shell__header">
     <span class="shell__brand">NexusOps</span>
   </header>
-  <div class="shell__body">
-    <nav class="shell__sidebar" aria-label="Primary">
-      <!-- nav links land here on Day 3 / weekend -->
-    </nav>
+  <div class="shell__body" [class.shell__body--sidebar-collapsed]="sidebarCollapsed()">
+    <app-sidebar [(collapsed)]="sidebarCollapsed" />
     <main class="shell__content">
       <ul class="ticket-list">
         @for (ticket of tickets; track ticket.id) {

@@ -1,0 +1,21 @@
+.sidebar {
+  width: 240px;
+  transition: width 0.2s ease;
+}
+
+.sidebar--collapsed {
+  width: 48px;
+}
+
+.sidebar__toggle {
+  transition: background-color 0.15s ease;
+}
+
+.sidebar__toggle:hover {
+  background-color: #f0f0f0;
+}
+
+.sidebar__toggle:focus-visible {
+  outline: 2px solid #1565c0;
+  outline-offset: 2px;
+}

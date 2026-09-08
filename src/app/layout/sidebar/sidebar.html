@@ -1,0 +1,11 @@
+<nav class="sidebar" [class.sidebar--collapsed]="collapsed()" aria-label="Primary">
+  <button
+    class="sidebar__toggle"
+    type="button"
+    [attr.aria-expanded]="!collapsed()"
+    (click)="toggle()"
+  >
+    {{ collapsed() ? '»' : '«' }}
+  </button>
+  <!-- nav links land here -->
+</nav>

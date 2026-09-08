@@ -17,6 +17,12 @@
   min-height: 0;
 }
 
+.shell__body--sidebar-collapsed {
+  .shell__content {
+    padding-left: 0.5rem;
+  }
+}
+
 .shell__sidebar {
   display: none;
 }
