@@ -1,0 +1,37 @@
+@let t = ticket();
+
+<li
+  class="ticket-card"
+  role="button"
+  tabindex="0"
+  (click)="onSelect()"
+  (keydown.enter)="onSelect()"
+>
+  <span class="ticket-card__title">{{ t.title }}</span>
+
+  <span class="ticket-card__status">
+    @switch (t.status) {
+      @case ('open') {
+        <span class="badge badge--open">Open</span>
+      }
+      @case ('assigned') {
+        <span class="badge badge--assigned">Assigned</span>
+      }
+      @case ('in-progress') {
+        <span class="badge badge--in-progress">In Progress</span>
+      }
+      @case ('resolved') {
+        <span class="badge badge--resolved">Resolved</span>
+      }
+      @case ('closed') {
+        <span class="badge badge--closed">Closed</span>
+      }
+    }
+  </span>
+
+  @if (t.status === 'assigned' || t.status === 'in-progress' || t.status === 'resolved') {
+    <span class="ticket-card__assignee">{{ t.assignee }}</span>
+  } @else {
+    <span class="ticket-card__assignee ticket-card__assignee--empty">Unassigned</span>
+  }
+</li>
