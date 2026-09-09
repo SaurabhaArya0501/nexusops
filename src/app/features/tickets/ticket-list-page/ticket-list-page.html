@@ -1,0 +1,7 @@
+<ul class="ticket-list">
+  @for (ticket of tickets; track ticket.id) {
+    <app-ticket-card [ticket]="ticket" (selected)="onTicketSelected($event)" />
+  } @empty {
+    <li class="empty-state">No tickets found</li>
+  }
+</ul>
