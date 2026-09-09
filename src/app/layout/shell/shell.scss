@@ -23,39 +23,8 @@
   }
 }
 
-.shell__sidebar {
-  display: none;
-}
-
 .shell__content {
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
-}
-
-@media (min-width: 768px) {
-  .shell__sidebar {
-    display: block;
-    width: 240px;
-    flex-shrink: 0;
-    border-right: 1px solid #ddd;
-    padding: 1rem;
-  }
-}
-
-.ticket-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.empty-state {
-  padding: 0.75rem;
-  border: 1px dashed #ddd;
-  border-radius: 4px;
-  color: #777;
-  text-align: center;
 }
