@@ -4,9 +4,20 @@ Enterprise operations platform built with modern Angular (Signals,
 zoneless change detection, hybrid rendering). Built in public as
 an architecture deep-dive.
 
+![NexusOps shell](docs/screenshots/shell-week2.png)
+
 ## Status
 
-🚧 Actively developed — Foundation: strict TypeScript, tooling, domain models
+🚧 Shell, navigation, and ticket list feature are live. Ticket detail and creation flows are in progress.
+
+## Architecture so far
+
+- Standalone components throughout, bootstrapped via `bootstrapApplication`
+- Application shell (header, sidebar, content) with lazy-loaded feature routes
+- Ticket list feature backed by the domain model, rendered via a reusable `TicketCard`
+- Fully responsive (mobile-first, 768px breakpoint)
+- Design token system (CSS custom properties) for color, spacing, typography, and elevation
+- Self-hosted Roboto typeface
 
 ## Planned architecture
 
