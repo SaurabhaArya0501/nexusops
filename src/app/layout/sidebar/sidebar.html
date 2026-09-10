@@ -1,0 +1,24 @@
+<nav class="sidebar" [class.sidebar--collapsed]="collapsed()" aria-label="Primary">
+  <button
+    class="sidebar__toggle"
+    type="button"
+    [attr.aria-expanded]="!collapsed()"
+    (click)="toggle()"
+  >
+    {{ collapsed() ? '»' : '«' }}
+  </button>
+  @if (!collapsed()) {
+    <ul class="sidebar__links">
+      <li>
+        <a routerLink="/tickets" routerLinkActive="sidebar__link--active" class="sidebar__link"
+          >Tickets</a
+        >
+      </li>
+      <li>
+        <a routerLink="/dashboard" routerLinkActive="sidebar__link--active" class="sidebar__link"
+          >Dashboard</a
+        >
+      </li>
+    </ul>
+  }
+</nav>
