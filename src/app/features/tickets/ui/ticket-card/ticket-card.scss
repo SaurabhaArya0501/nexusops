@@ -1,80 +1,64 @@
 .ticket-card {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   background: #fff;
   cursor: pointer;
   transition:
     box-shadow 0.15s ease,
     border-color 0.15s ease;
-  &:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border-color: #bbb;
-  }
-  &:focus-visible {
-    outline: 2px solid #1565c0;
-    outline-offset: 2px;
-  }
-
-  &:active {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
 }
 
-.ticket-card--empty {
-  color: #777;
-  text-align: center;
-  border-style: dashed;
+.ticket-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: #bbb;
+}
+
+.ticket-card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.ticket-card:active {
+  box-shadow: var(--shadow-sm);
 }
 
 .ticket-card__title {
-  font-weight: 600;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ticket-card__status {
+  display: flex;
+  align-items: center;
 }
 
 .ticket-card__assignee {
-  font-size: 0.875rem;
-  color: #333;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
 }
 
 .ticket-card__assignee--empty {
-  color: #999;
+  color: var(--color-text-muted);
   font-style: italic;
-}
-
-@media (min-width: 768px) {
-  .ticket-card {
-    display: grid;
-    grid-template-columns: 1fr 140px 120px;
-    align-items: center;
-    column-gap: 1rem;
-  }
-
-  .ticket-card__status {
-    display: flex;
-    align-items: center;
-  }
-
-  .ticket-card__assignee {
-    text-align: right;
-  }
 }
 
 .badge {
   display: inline-block;
-  padding: 0.15rem 0.5rem;
+  padding: 0.15rem var(--space-2);
   border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   white-space: nowrap;
   width: fit-content;
 }
 
 .badge--open {
-  background: #e3f2fd;
-  color: #1565c0;
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
 }
 
 .badge--assigned {
@@ -95,4 +79,17 @@
 .badge--closed {
   background: #eceff1;
   color: #546e7a;
+}
+
+@media (min-width: 768px) {
+  .ticket-card {
+    display: grid;
+    grid-template-columns: 1fr 140px 120px;
+    align-items: center;
+    column-gap: var(--space-4);
+  }
+
+  .ticket-card__assignee {
+    text-align: right;
+  }
 }

@@ -12,43 +12,44 @@
 }
 
 .sidebar__toggle:hover {
-  background-color: #f0f0f0;
+  background-color: var(--color-primary-bg);
 }
 
 .sidebar__toggle:focus-visible {
-  outline: 2px solid #1565c0;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
-}
-
-.sidebar__link--active {
-  background-color: #e3f2fd;
-  color: #1565c0;
-  font-weight: 600;
 }
 
 .sidebar__links {
   list-style: none;
-  margin: 1rem 0 0;
+  margin: var(--space-4) 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--space-1);
 }
 
 .sidebar__link {
   display: block;
-  padding: 0.5rem 0.75rem;
+  padding: var(--space-2) var(--space-3);
   border-radius: 4px;
   text-decoration: none;
   color: inherit;
+  font-size: var(--font-size-base);
   transition: background-color 0.15s ease;
 }
 
 .sidebar__link:hover {
-  background-color: #f0f0f0;
+  background-color: var(--color-primary-bg);
 }
 
 .sidebar__link:focus-visible {
-  outline: 2px solid #1565c0;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+}
+
+.sidebar__link--active {
+  background-color: var(--color-primary-bg);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
 }
