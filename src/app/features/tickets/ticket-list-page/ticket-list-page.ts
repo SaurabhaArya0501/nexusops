@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { MOCK_TICKETS } from '../../../data/mock-tickets';
+import { Component, inject } from '@angular/core';
 import { TicketCard } from '../ui/ticket-card/ticket-card';
 import { TicketId } from '../../../domain/ids';
+import { TicketStore } from '../data/ticket-store';
 
 @Component({
   selector: 'app-ticket-list-page',
@@ -10,7 +10,7 @@ import { TicketId } from '../../../domain/ids';
   styleUrl: './ticket-list-page.scss',
 })
 export class TicketListPage {
-  protected readonly tickets = MOCK_TICKETS;
+  readonly store = inject(TicketStore);
 
   protected onTicketSelected(id: TicketId): void {
     console.log('Selected ticket: ', id);
