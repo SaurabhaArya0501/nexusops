@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { Ticket } from '../../../domain/ticket';
-import { MOCK_TICKETS } from '../../../data/mock-tickets';
+import { MOCK_TICKETS } from './mock-tickets';
 
 @Injectable({ providedIn: 'root' })
 export class TicketStore {
