@@ -1,1 +1,17 @@
-<p>dashboard-page works!</p>
+<div class="dashboard">
+  <h1 class="dashboard__title">Dashboard</h1>
+
+  <div class="dashboard__stats">
+    <div class="stat-card stat-card--total">
+      <span class="stat-card__count">{{ store.total() }}</span>
+      <span class="stat-card__label">Total</span>
+    </div>
+
+    @for (status of statuses; track status) {
+      <div class="stat-card">
+        <span class="stat-card__count">{{ store.counts()[status] }}</span>
+        <span class="stat-card__label">{{ status }}</span>
+      </div>
+    }
+  </div>
+</div>
