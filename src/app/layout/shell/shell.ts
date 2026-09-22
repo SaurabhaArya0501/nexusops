@@ -1,4 +1,4 @@
-import { Component, HostListener, signal, viewChild } from '@angular/core';
+import { Component, effect, HostListener, signal, viewChild } from '@angular/core';
 import { Sidebar } from '../sidebar/sidebar';
 import { Header } from '../header/header';
 import { RouterOutlet } from '@angular/router';
@@ -10,8 +10,16 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './shell.scss',
 })
 export class Shell {
-  protected readonly sidebarCollapsed = signal(false);
+  protected readonly sidebarCollapsed = signal(
+    localStorage.getItem('nx.sidebar.collapsed') === 'true',
+  );
   private readonly header = viewChild.required(Header);
+
+  constructor() {
+    effect(() => {
+      localStorage.setItem('nx.sidebar.collapsed', String(this.sidebarCollapsed()));
+    });
+  }
 
   @HostListener('document:keydown./', ['$event'])
   onSlash(event: Event): void {
