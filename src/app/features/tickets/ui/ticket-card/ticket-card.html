@@ -7,6 +7,35 @@
   (click)="onSelect()"
   (keydown.enter)="onSelect()"
 >
+  <span class="ticket-card__priority">
+    @switch (t.priority) {
+      @case ('critical') {
+        <span class="priority-tag priority-tag--critical">
+          <span class="priority-tag__dot"></span>
+          Critical
+        </span>
+      }
+      @case ('high') {
+        <span class="priority-tag priority-tag--high">
+          <span class="priority-tag__dot"></span>
+          High
+        </span>
+      }
+      @case ('medium') {
+        <span class="priority-tag priority-tag--medium">
+          <span class="priority-tag__dot"></span>
+          Medium
+        </span>
+      }
+      @case ('low') {
+        <span class="priority-tag priority-tag--low">
+          <span class="priority-tag__dot"></span>
+          Low
+        </span>
+      }
+    }
+  </span>
+
   <span class="ticket-card__title">{{ t.title }}</span>
 
   <span class="ticket-card__status">

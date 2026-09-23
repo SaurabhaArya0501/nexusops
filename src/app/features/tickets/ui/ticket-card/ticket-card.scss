@@ -81,10 +81,58 @@
   color: #546e7a;
 }
 
+.priority-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.priority-tag__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.priority-tag--critical {
+  color: var(--color-priority-critical-text);
+}
+.priority-tag--critical .priority-tag__dot {
+  background: var(--color-priority-critical-text);
+}
+
+.priority-tag--high {
+  color: var(--color-priority-high-text);
+}
+.priority-tag--high .priority-tag__dot {
+  background: var(--color-priority-high-text);
+}
+
+.priority-tag--medium {
+  color: var(--color-priority-medium-text);
+}
+.priority-tag--medium .priority-tag__dot {
+  background: var(--color-priority-medium-text);
+}
+
+.priority-tag--low {
+  color: var(--color-priority-low-text);
+}
+.priority-tag--low .priority-tag__dot {
+  background: var(--color-priority-low-text);
+}
+
+.ticket-card__priority {
+  display: flex;
+  align-items: center;
+}
+
 @media (min-width: 768px) {
   .ticket-card {
     display: grid;
-    grid-template-columns: 1fr 140px 120px;
+    grid-template-columns: 100px 1fr 140px 120px;
     align-items: center;
     column-gap: var(--space-4);
   }
