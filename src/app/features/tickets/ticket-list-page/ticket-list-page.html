@@ -32,6 +32,18 @@
       </button>
     }
   </div>
+  <label class="tickets-toolbar__sort">
+    <span class="tickets-toolbar__sort-label">Sort</span>
+    <select
+      class="tickets-toolbar__select"
+      [value]="store.sortBy()"
+      (change)="onSortChange($event)"
+    >
+      @for (option of sortOptions; track option) {
+        <option [value]="option">{{ option }}</option>
+      }
+    </select>
+  </label>
 </div>
 <ul class="ticket-list">
   @for (ticket of store.visibleTickets(); track ticket.id) {

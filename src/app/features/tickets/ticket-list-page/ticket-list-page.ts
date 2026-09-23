@@ -4,6 +4,7 @@ import { TicketCard } from '../ui/ticket-card/ticket-card';
 import { TicketId } from '../../../domain/ids';
 import { TicketStore } from '../data/ticket-store';
 import { Ticket } from '../../../domain/ticket';
+import { TicketSort } from '../data/sort';
 
 @Component({
   selector: 'app-ticket-list-page',
@@ -22,6 +23,7 @@ export class TicketListPage {
     'resolved',
     'closed',
   ];
+  readonly sortOptions: readonly TicketSort[] = ['newest', 'priority', 'title'];
 
   constructor() {
     effect(() => {
@@ -36,5 +38,10 @@ export class TicketListPage {
   onQueryInput(event: Event) {
     const input = event.target as HTMLInputElement;
     this.store.setQuery(input.value);
+  }
+
+  onSortChange(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    this.store.setSortBy(select.value as TicketSort);
   }
 }

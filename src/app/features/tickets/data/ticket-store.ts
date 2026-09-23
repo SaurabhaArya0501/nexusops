@@ -1,6 +1,7 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, linkedSignal, computed } from '@angular/core';
 import { Ticket } from '../../../domain/ticket';
 import { MOCK_TICKETS } from './mock-tickets';
+import { sortTickets, type TicketSort } from './sort';
 
 @Injectable({ providedIn: 'root' })
 export class TicketStore {
@@ -33,10 +34,22 @@ export class TicketStore {
     const status = this.#statusFilter();
     const q = this.#query().trim().toLowerCase();
 
-    return this.#tickets().filter(
+    const filtered = this.#tickets().filter(
       (t) => (status === 'all' || t.status === status) && t.title.toLowerCase().includes(q),
     );
+
+    return sortTickets(filtered, this.#sortBy());
   });
+
+  readonly #sortBy = linkedSignal<TicketSort>(() => {
+    this.#statusFilter();
+    return 'newest';
+  });
+  readonly sortBy = this.#sortBy.asReadonly();
+
+  setSortBy(sort: TicketSort) {
+    this.#sortBy.set(sort);
+  }
 
   setStatusFilter(status: Ticket['status'] | 'all') {
     this.#statusFilter.set(status);

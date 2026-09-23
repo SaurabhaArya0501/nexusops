@@ -17,11 +17,17 @@
 
 .tickets-toolbar {
   display: flex;
-  flex-direction: column-reverse; // input on top on mobile
+  flex-direction: column;
   gap: var(--space-3);
   margin-bottom: var(--space-4);
 
+  &__search {
+    order: 1;
+    position: relative;
+  }
+
   &__chips {
+    order: 2;
     display: flex;
     gap: var(--space-2);
     overflow-x: auto;
@@ -53,8 +59,23 @@
     }
   }
 
-  &__search {
-    position: relative;
+  &__sort {
+    order: 3;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  &__sort-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  &__select {
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-surface);
   }
 
   &__input {
@@ -74,10 +95,19 @@
 
   @media (min-width: 768px) {
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
 
+    &__chips {
+      order: 1;
+      flex: 1;
+    }
+
+    &__sort {
+      order: 2;
+    }
+
     &__search {
+      order: 3;
       width: 280px;
     }
   }
