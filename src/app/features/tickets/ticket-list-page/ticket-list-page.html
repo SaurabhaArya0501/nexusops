@@ -1,7 +1,45 @@
+<div class="tickets-toolbar">
+  <div class="tickets-toolbar__chips">
+    @for (option of statusOptions; track option) {
+      <button
+        type="button"
+        class="tickets-toolbar__chip"
+        [class.tickets-toolbar__chip--active]="store.statusFilter() === option"
+        [attr.aria-pressed]="store.statusFilter() === option"
+        (click)="store.setStatusFilter(option)"
+      >
+        {{ option }}
+      </button>
+    }
+  </div>
+  <div class="tickets-toolbar__search">
+    <input
+      type="search"
+      class="tickets-toolbar__input"
+      placeholder="Filter by title"
+      aria-label="Filter tickets by title"
+      [value]="store.query()"
+      (input)="onQueryInput($event)"
+    />
+    @if (store.query()) {
+      <button
+        type="button"
+        class="tickets-toolbar__clear"
+        aria-label="Clear filter text"
+        (click)="store.setQuery('')"
+      >
+        ×
+      </button>
+    }
+  </div>
+</div>
 <ul class="ticket-list">
-  @for (ticket of store.tickets(); track ticket.id) {
+  @for (ticket of store.visibleTickets(); track ticket.id) {
     <app-ticket-card [ticket]="ticket" (selected)="onTicketSelected($event)" />
   } @empty {
-    <li class="empty-state">No tickets found</li>
+    <div class="tickets-empty">
+      <p>No tickets match your filters.</p>
+      <button type="button" (click)="store.clearFilters()">Clear filters</button>
+    </div>
   }
 </ul>
