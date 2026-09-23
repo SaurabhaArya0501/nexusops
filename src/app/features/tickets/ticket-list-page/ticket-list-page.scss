@@ -31,25 +31,25 @@
   &__chip {
     flex-shrink: 0;
     padding: var(--space-1) var(--space-3);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--color-border);
     border-radius: 999px;
-    background: var(--surface-color);
+    background: var(--color-surface);
     text-transform: capitalize;
     cursor: pointer;
 
-    &:hover {
-      background: var(--surface-hover);
+    &:hover:not(.tickets-toolbar__chip--active) {
+      background: var(--color-primary-bg);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--primary-color);
+      outline: 2px solid var(--color-primary);
       outline-offset: 2px;
     }
 
     &--active {
-      background: var(--primary-color);
-      border-color: var(--primary-color);
-      color: var(--on-primary-color);
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-on-primary);
     }
   }
 
