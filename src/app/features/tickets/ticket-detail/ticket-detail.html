@@ -1,0 +1,62 @@
+@if (ticket(); as t) {
+  <article class="ticket-detail">
+    <a class="ticket-detail__back" routerLink="/tickets">← All tickets</a>
+
+    <header class="ticket-detail__header">
+      <h1 class="ticket-detail__title">{{ t.title }}</h1>
+    </header>
+
+    <div class="ticket-detail__body">
+      <p class="ticket-detail__description">{{ t.description }}</p>
+    </div>
+
+    <aside class="ticket-detail__meta">
+      <div class="ticket-detail__meta-item">
+        <span class="ticket-detail__meta-label">Status</span>
+        @switch (t.status) {
+          @case ('open') {
+            <span class="badge badge--open">Open</span>
+          }
+          @case ('assigned') {
+            <span class="badge badge--assigned">Assigned</span>
+          }
+          @case ('in-progress') {
+            <span class="badge badge--in-progress">In Progress</span>
+          }
+          @case ('resolved') {
+            <span class="badge badge--resolved">Resolved</span>
+          }
+          @case ('closed') {
+            <span class="badge badge--closed">Closed</span>
+          }
+        }
+      </div>
+
+      <div class="ticket-detail__meta-item">
+        <span class="ticket-detail__meta-label">Priority</span>
+        <span class="priority-tag priority-tag--{{ t.priority }}">
+          <span class="priority-tag__dot"></span>
+          {{ t.priority }}
+        </span>
+      </div>
+
+      @if (t.status === 'assigned' || t.status === 'in-progress' || t.status === 'resolved') {
+        <div class="ticket-detail__meta-item">
+          <span class="ticket-detail__meta-label">Assignee</span>
+          <span>{{ t.assignee }}</span>
+        </div>
+      }
+
+      <div class="ticket-detail__meta-item">
+        <span class="ticket-detail__meta-label">Opened</span>
+        <span>{{ t.openedAt | date: 'medium' }}</span>
+      </div>
+    </aside>
+  </article>
+} @else {
+  <div class="ticket-detail__missing">
+    <h1>Ticket not found</h1>
+    <p>No ticket exists with id "{{ id() }}".</p>
+    <a routerLink="/tickets">← Back to all tickets</a>
+  </div>
+}
