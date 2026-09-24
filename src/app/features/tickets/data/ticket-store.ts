@@ -5,8 +5,20 @@ import { sortTickets, type TicketSort } from './sort';
 
 @Injectable({ providedIn: 'root' })
 export class TicketStore {
+  // State (private, writable)
   readonly #tickets = signal<Ticket[]>([...MOCK_TICKETS]);
+  readonly #statusFilter = signal<Ticket['status'] | 'all'>('all');
+  readonly #query = signal('');
+  readonly #sortBy = linkedSignal<TicketSort>(() => {
+    this.#statusFilter();
+    return 'newest';
+  });
+
+  // Queries (public, read-only)
   readonly tickets = this.#tickets.asReadonly();
+  readonly statusFilter = this.#statusFilter.asReadonly();
+  readonly query = this.#query.asReadonly();
+  readonly sortBy = this.#sortBy.asReadonly();
 
   readonly counts = computed(() => {
     const acc: Record<Ticket['status'], number> = {
@@ -21,15 +33,7 @@ export class TicketStore {
     }
     return acc;
   });
-
   readonly total = computed(() => this.#tickets().length);
-
-  readonly #statusFilter = signal<Ticket['status'] | 'all'>('all');
-  readonly #query = signal('');
-
-  readonly statusFilter = this.#statusFilter.asReadonly();
-  readonly query = this.#query.asReadonly();
-
   readonly visibleTickets = computed(() => {
     const status = this.#statusFilter();
     const q = this.#query().trim().toLowerCase();
@@ -41,12 +45,7 @@ export class TicketStore {
     return sortTickets(filtered, this.#sortBy());
   });
 
-  readonly #sortBy = linkedSignal<TicketSort>(() => {
-    this.#statusFilter();
-    return 'newest';
-  });
-  readonly sortBy = this.#sortBy.asReadonly();
-
+  // Commands (public, change state)
   setSortBy(sort: TicketSort) {
     this.#sortBy.set(sort);
   }
