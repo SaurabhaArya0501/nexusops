@@ -47,11 +47,7 @@
 </div>
 <ul class="ticket-list">
   @for (ticket of store.visibleTickets(); track ticket.id) {
-    <app-ticket-card
-      [ticket]="ticket"
-      [showStatus]="store.statusFilter() === 'all'"
-      (selected)="onTicketSelected($event)"
-    />
+    <app-ticket-card [ticket]="ticket" [showStatus]="store.statusFilter() === 'all'" />
   } @empty {
     <div class="tickets-empty">
       <p>No tickets match your filters.</p>

@@ -1,7 +1,6 @@
 import { Component, effect, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { TicketCard } from '../ui/ticket-card/ticket-card';
-import { TicketId } from '../../../domain/ids';
 import { TicketStore } from '../data/ticket-store';
 import { Ticket } from '../../../domain/ticket';
 import { TicketSort } from '../data/sort';
@@ -29,10 +28,6 @@ export class TicketListPage {
     effect(() => {
       this.#title.setTitle(`Tickets (${this.store.total()}) - NexusOps`);
     });
-  }
-
-  protected onTicketSelected(id: TicketId): void {
-    console.log('Selected ticket: ', id);
   }
 
   onQueryInput(event: Event) {

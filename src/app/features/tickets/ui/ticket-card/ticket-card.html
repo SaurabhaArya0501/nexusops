@@ -1,68 +1,64 @@
 @let t = ticket();
 
-<li
-  class="ticket-card"
-  role="button"
-  tabindex="0"
-  (click)="onSelect()"
-  (keydown.enter)="onSelect()"
->
-  <span class="ticket-card__priority">
-    @switch (t.priority) {
-      @case ('critical') {
-        <span class="priority-tag priority-tag--critical">
-          <span class="priority-tag__dot"></span>
-          Critical
-        </span>
-      }
-      @case ('high') {
-        <span class="priority-tag priority-tag--high">
-          <span class="priority-tag__dot"></span>
-          High
-        </span>
-      }
-      @case ('medium') {
-        <span class="priority-tag priority-tag--medium">
-          <span class="priority-tag__dot"></span>
-          Medium
-        </span>
-      }
-      @case ('low') {
-        <span class="priority-tag priority-tag--low">
-          <span class="priority-tag__dot"></span>
-          Low
-        </span>
-      }
-    }
-  </span>
-
-  <span class="ticket-card__title">{{ t.title }}</span>
-
-  @if (showStatus()) {
-    <span class="ticket-card__status">
-      @switch (t.status) {
-        @case ('open') {
-          <span class="badge badge--open">Open</span>
+<li class="ticket-card" [class.ticket-card--no-status]="!showStatus()">
+  <a class="ticket-card__link" [routerLink]="['/tickets', t.id]">
+    <span class="ticket-card__priority">
+      @switch (t.priority) {
+        @case ('critical') {
+          <span class="priority-tag priority-tag--critical">
+            <span class="priority-tag__dot"></span>
+            Critical
+          </span>
         }
-        @case ('assigned') {
-          <span class="badge badge--assigned">Assigned</span>
+        @case ('high') {
+          <span class="priority-tag priority-tag--high">
+            <span class="priority-tag__dot"></span>
+            High
+          </span>
         }
-        @case ('in-progress') {
-          <span class="badge badge--in-progress">In Progress</span>
+        @case ('medium') {
+          <span class="priority-tag priority-tag--medium">
+            <span class="priority-tag__dot"></span>
+            Medium
+          </span>
         }
-        @case ('resolved') {
-          <span class="badge badge--resolved">Resolved</span>
-        }
-        @case ('closed') {
-          <span class="badge badge--closed">Closed</span>
+        @case ('low') {
+          <span class="priority-tag priority-tag--low">
+            <span class="priority-tag__dot"></span>
+            Low
+          </span>
         }
       }
     </span>
-  }
 
-  @if (t.status === 'assigned' || t.status === 'in-progress' || t.status === 'resolved') {
-    <span class="ticket-card__assignee">{{ t.assignee }}</span>
-  } @else {
-    <span class="ticket-card__assignee ticket-card__assignee--empty">Unassigned</span>
-  }
+    <span class="ticket-card__title">{{ t.title }}</span>
+
+    @if (showStatus()) {
+      <span class="ticket-card__status">
+        @switch (t.status) {
+          @case ('open') {
+            <span class="badge badge--open">Open</span>
+          }
+          @case ('assigned') {
+            <span class="badge badge--assigned">Assigned</span>
+          }
+          @case ('in-progress') {
+            <span class="badge badge--in-progress">In Progress</span>
+          }
+          @case ('resolved') {
+            <span class="badge badge--resolved">Resolved</span>
+          }
+          @case ('closed') {
+            <span class="badge badge--closed">Closed</span>
+          }
+        }
+      </span>
+    }
+
+    @if (t.status === 'assigned' || t.status === 'in-progress' || t.status === 'resolved') {
+      <span class="ticket-card__assignee">{{ t.assignee }}</span>
+    } @else {
+      <span class="ticket-card__assignee ticket-card__assignee--empty">Unassigned</span>
+    }
+  </a>
 </li>
