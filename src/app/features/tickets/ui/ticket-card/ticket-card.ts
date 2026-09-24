@@ -10,6 +10,7 @@ import { TicketId } from '../../../../domain/ids';
 })
 export class TicketCard {
   ticket = input.required<Ticket>();
+  readonly showStatus = input(true);
   selected = output<TicketId>();
 
   protected readonly hasAssignee = computed(() => {

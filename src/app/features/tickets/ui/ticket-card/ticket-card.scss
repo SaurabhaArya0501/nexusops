@@ -137,6 +137,10 @@
     column-gap: var(--space-4);
   }
 
+  .ticket-card--no-status {
+    grid-template-columns: 100px 1fr 120px;
+  }
+
   .ticket-card__assignee {
     text-align: right;
   }
