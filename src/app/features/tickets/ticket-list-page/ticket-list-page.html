@@ -40,7 +40,7 @@
       (change)="onSortChange($event)"
     >
       @for (option of sortOptions; track option) {
-        <option [value]="option">{{ option }}</option>
+        <option [value]="option" [selected]="option === store.sortBy()">{{ option }}</option>
       }
     </select>
   </label>
