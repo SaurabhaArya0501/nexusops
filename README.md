@@ -4,7 +4,6 @@ Enterprise operations platform built with modern Angular (Signals,
 zoneless change detection, hybrid rendering). Built in public as
 an architecture deep-dive.
 
-![NexusOps Tickets](docs/screenshots/tickets.png)
 ![Filtering, sorting, and ticket detail navigation](docs/screenshots/tickets-demo.gif)
 
 ## Status
@@ -22,7 +21,7 @@ an architecture deep-dive.
 - Design token system (CSS custom properties) for color, spacing, typography, and elevation
 - Self-hosted Roboto typeface
 
-<pre>```shell (header + sidebar)
+<pre>shell (header + sidebar)
    │
    └── lazy feature routes
           │
@@ -39,7 +38,7 @@ an architecture deep-dive.
                           domain types
                     (branded ids, discriminated
                        unions, exhaustiveness)
-```</pre>
+</pre>
 
 ## State management
 
