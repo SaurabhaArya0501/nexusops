@@ -1,5 +1,5 @@
-import { Ticket } from '../domain/ticket';
-import { TicketId, UserId } from '../domain/ids';
+import { Ticket } from '../../../domain/ticket';
+import { TicketId, UserId } from '../../../domain/ids';
 
 export const MOCK_TICKETS: readonly Ticket[] = [
   {

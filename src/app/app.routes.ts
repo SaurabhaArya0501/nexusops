@@ -4,8 +4,7 @@ export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'tickets' },
   {
     path: 'tickets',
-    loadComponent: () =>
-      import('./features/tickets/ticket-list-page/ticket-list-page').then((m) => m.TicketListPage),
+    loadChildren: () => import('./features/tickets/tickets.routes').then((m) => m.TICKETS_ROUTES),
   },
   {
     path: 'dashboard',

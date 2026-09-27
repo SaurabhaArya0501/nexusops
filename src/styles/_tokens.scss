@@ -1,10 +1,28 @@
 :root {
+  // Priority
+  --color-priority-critical-bg: #ffebee;
+  --color-priority-critical-text: #c62828;
+
+  --color-priority-high-bg: #fff3e0;
+  --color-priority-high-text: #e65100;
+
+  --color-priority-medium-bg: #e3f2fd;
+  --color-priority-medium-text: #1565c0;
+
+  --color-priority-low-bg: #eceff1;
+  --color-priority-low-text: #546e7a;
+
   // Color
   --color-primary: #1565c0;
   --color-primary-bg: #e3f2fd;
   --color-border: #ddd;
   --color-text: #222;
   --color-text-muted: #777;
+  --color-surface: #ffffff;
+  --color-on-primary: #ffffff;
+
+  // Radius
+  --radius-md: 8px;
 
   // Spacing scale
   --space-1: 0.25rem;
