@@ -1,12 +1,13 @@
 import { Injectable, signal, linkedSignal, computed } from '@angular/core';
 import { Ticket } from '../../../domain/ticket';
-import { MOCK_TICKETS } from './mock-tickets';
+import { MOCK_TICKETS_DTOS } from './mock-tickets';
 import { sortTickets, type TicketSort } from './sort';
+import { toTicket } from './ticket-dto';
 
 @Injectable({ providedIn: 'root' })
 export class TicketStore {
   // State (private, writable)
-  readonly #tickets = signal<Ticket[]>([...MOCK_TICKETS]);
+  readonly #tickets = signal<Ticket[]>(MOCK_TICKETS_DTOS.map(toTicket));
   readonly #statusFilter = signal<Ticket['status'] | 'all'>('all');
   readonly #query = signal('');
   readonly #sortBy = linkedSignal<TicketSort>(() => {
