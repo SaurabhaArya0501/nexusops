@@ -1,13 +1,17 @@
-import { Injectable, signal, linkedSignal, computed } from '@angular/core';
+import { Injectable, signal, linkedSignal, computed, resource } from '@angular/core';
 import { Ticket } from '../../../domain/ticket';
-import { MOCK_TICKETS_DTOS } from './mock-tickets';
 import { sortTickets, type TicketSort } from './sort';
-import { toTicket } from './ticket-dto';
+import { fetchTickets } from './ticket-api';
 
 @Injectable({ providedIn: 'root' })
 export class TicketStore {
   // State (private, writable)
-  readonly #tickets = signal<Ticket[]>(MOCK_TICKETS_DTOS.map(toTicket));
+  readonly #ticketsResource = resource({
+    loader: () => fetchTickets(),
+  });
+  readonly #tickets = computed(() =>
+    this.#ticketsResource.hasValue() ? this.#ticketsResource.value() : [],
+  );
   readonly #statusFilter = signal<Ticket['status'] | 'all'>('all');
   readonly #query = signal('');
   readonly #sortBy = linkedSignal<TicketSort>(() => {
@@ -16,10 +20,12 @@ export class TicketStore {
   });
 
   // Queries (public, read-only)
-  readonly tickets = this.#tickets.asReadonly();
+  readonly tickets = this.#tickets;
   readonly statusFilter = this.#statusFilter.asReadonly();
   readonly query = this.#query.asReadonly();
   readonly sortBy = this.#sortBy.asReadonly();
+  readonly isLoading = this.#ticketsResource.isLoading;
+  readonly error = this.#ticketsResource.error;
 
   readonly counts = computed(() => {
     const acc: Record<Ticket['status'], number> = {
@@ -62,5 +68,9 @@ export class TicketStore {
   clearFilters() {
     this.#statusFilter.set('all');
     this.#query.set('');
+  }
+
+  reload() {
+    this.#ticketsResource.reload();
   }
 }
