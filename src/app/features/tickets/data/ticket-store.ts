@@ -1,13 +1,14 @@
-import { Injectable, signal, linkedSignal, computed, resource } from '@angular/core';
+import { Injectable, signal, linkedSignal, computed, resource, inject } from '@angular/core';
 import { Ticket } from '../../../domain/ticket';
 import { sortTickets, type TicketSort } from './sort';
-import { fetchTickets } from './ticket-api';
+import { TicketApi } from './ticket-api';
 
 @Injectable({ providedIn: 'root' })
 export class TicketStore {
   // State (private, writable)
+  readonly #api = inject(TicketApi);
   readonly #ticketsResource = resource({
-    loader: () => fetchTickets(),
+    loader: () => this.#api.fetchTickets(),
   });
   readonly #tickets = computed(() =>
     this.#ticketsResource.hasValue() ? this.#ticketsResource.value() : [],
