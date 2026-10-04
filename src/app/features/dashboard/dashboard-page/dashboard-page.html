@@ -2,7 +2,9 @@
   <h1 class="dashboard__title">Dashboard</h1>
 
   @if (store.isLoading()) {
-    <p class="dashboard__status">Loading…</p>
+    <p class="dashboard__status" role="status">Loading…</p>
+  } @else if (store.errorMessage(); as message) {
+    <app-error-panel [message]="message" (retry)="store.reload()" />
   } @else {
     <div class="dashboard__stats">
       <div class="dashboard__stats">

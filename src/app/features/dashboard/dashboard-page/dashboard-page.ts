@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { TicketStore } from '../../tickets/data/ticket-store';
 import { Ticket } from '../../../domain/ticket';
+import { ErrorPanel } from '../../../shared/ui/error-panel/error-panel';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [],
+  imports: [ErrorPanel],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss',
 })

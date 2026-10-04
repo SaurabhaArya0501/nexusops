@@ -47,7 +47,18 @@
 </div>
 
 @if (store.isLoading()) {
-  <p class="tickets-status">Loading tickets...</p>
+  <ul class="ticket-list" role="status" aria-live="polite" aria-busy="true">
+    <span class="sr-only">Loading tickets</span>
+    @for (i of skeletonRows; track i) {
+      <app-ticket-card-skeleton />
+    }
+  </ul>
+} @else if (store.errorMessage(); as message) {
+  <app-error-panel [message]="message" (retry)="store.reload()" />
+} @else if (store.total() === 0) {
+  <div class="tickets-empty">
+    <p>No tickets yet.</p>
+  </div>
 } @else {
   <ul class="ticket-list">
     @for (ticket of store.visibleTickets(); track ticket.id) {

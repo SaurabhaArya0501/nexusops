@@ -1,5 +1,5 @@
 import { Injectable, signal, linkedSignal, computed } from '@angular/core';
-import { httpResource } from '@angular/common/http';
+import { httpResource, HttpErrorResponse } from '@angular/common/http';
 import { toTicket, type TicketDto } from './ticket-dto';
 import { Ticket } from '../../../domain/ticket';
 import { sortTickets, type TicketSort } from './sort';
@@ -18,6 +18,17 @@ export class TicketStore {
   readonly #sortBy = linkedSignal<TicketSort>(() => {
     this.#statusFilter();
     return 'newest';
+  });
+  readonly errorMessage = computed(() => {
+    const err = this.#ticketsResource.error();
+    if (!err) return null;
+
+    if (err instanceof HttpErrorResponse) {
+      if (err.status === 0) return 'You appear to be offline. Check your connection.';
+      if (err.status === 404) return 'Tickets are unavailable right now.';
+      if (err.status >= 500) return "We couldn't load tickets. Please try again.";
+    }
+    return 'Something went wrong while loading tickets.';
   });
 
   // Queries (public, read-only)
