@@ -10,7 +10,10 @@ const TICKET_URL = /^\/api\/tickets\/([^/]+)$/;
 
 /** Dev switch: add ?mock=error, ?mock=empty or ?mock=slow to the page URL. */
 function mockMode(): string | null {
-  return new URLSearchParams(location.search).get('mock');
+  return (
+    ((globalThis as Record<string, unknown>)['__mock'] as string | undefined) ??
+    new URLSearchParams(location.search).get('mock')
+  );
 }
 
 /** Per-ticket latency, so request races are reproducible in dev. */

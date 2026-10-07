@@ -10,9 +10,10 @@ export class TicketStore {
   readonly #ticketsResource = httpResource<Ticket[]>(() => '/api/tickets', {
     parse: (raw) => (raw as TicketDto[]).map(toTicket),
   });
-  readonly #tickets = computed(() =>
-    this.#ticketsResource.hasValue() ? this.#ticketsResource.value() : [],
-  );
+  readonly #tickets = linkedSignal<Ticket[] | null, Ticket[]>({
+    source: () => (this.#ticketsResource.hasValue() ? this.#ticketsResource.value() : null),
+    computation: (source, previous) => source ?? previous?.value ?? [],
+  });
   readonly #statusFilter = signal<Ticket['status'] | 'all'>('all');
   readonly #query = signal('');
   readonly #sortBy = linkedSignal<TicketSort>(() => {
@@ -23,6 +24,8 @@ export class TicketStore {
     const err = this.#ticketsResource.error();
     if (!err) return null;
 
+    if (this.hasData()) return "Couldn't refresh. Showing the last loaded tickets.";
+
     if (err instanceof HttpErrorResponse) {
       if (err.status === 0) return 'You appear to be offline. Check your connection.';
       if (err.status === 404) return 'Tickets are unavailable right now.';
@@ -32,12 +35,16 @@ export class TicketStore {
   });
 
   // Queries (public, read-only)
-  readonly tickets = this.#tickets;
+  readonly tickets = this.#tickets.asReadonly();
   readonly statusFilter = this.#statusFilter.asReadonly();
   readonly query = this.#query.asReadonly();
   readonly sortBy = this.#sortBy.asReadonly();
   readonly isLoading = this.#ticketsResource.isLoading;
   readonly error = this.#ticketsResource.error;
+  readonly hasData = computed(() => this.#tickets().length > 0);
+  readonly isInitialLoading = computed(() => this.#ticketsResource.isLoading() && !this.hasData());
+  readonly isRefreshing = computed(() => this.#ticketsResource.isLoading() && this.hasData());
+  readonly isStale = computed(() => this.#ticketsResource.error() !== undefined && this.hasData());
 
   readonly counts = computed(() => {
     const acc: Record<Ticket['status'], number> = {
