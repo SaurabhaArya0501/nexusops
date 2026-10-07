@@ -30,7 +30,7 @@ export class TicketListPage {
   constructor() {
     effect(() => {
       this.#title.setTitle(
-        this.store.isLoading()
+        this.store.isInitialLoading()
           ? 'Tickets - NexusOps'
           : `Tickets (${this.store.total()}) - NexusOps`,
       );
