@@ -9,4 +9,5 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
 export class ErrorPanel {
   readonly message = input.required<string>();
   readonly retry = output<void>();
+  readonly variant = input<'panel' | 'banner'>('panel');
 }

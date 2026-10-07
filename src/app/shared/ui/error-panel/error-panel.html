@@ -1,4 +1,8 @@
-<div class="error-panel" role="alert">
+<div
+  class="error-panel"
+  [class.error-panel--banner]="variant() === 'banner'"
+  [attr.role]="variant() === 'banner' ? 'status' : 'alert'"
+>
   <p class="error-panel__message">{{ message() }}</p>
   <button type="button" class="error-panel__retry" (click)="retry.emit()">Try again</button>
 </div>
