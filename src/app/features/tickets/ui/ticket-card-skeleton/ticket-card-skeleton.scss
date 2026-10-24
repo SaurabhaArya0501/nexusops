@@ -1,0 +1,39 @@
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) calc(var(--space-3) * 2);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-surface);
+  list-style: none;
+}
+
+.skeleton--priority {
+  width: 72px;
+}
+.skeleton--title {
+  width: 70%;
+}
+.skeleton--status {
+  width: 88px;
+}
+.skeleton--assignee {
+  width: 120px;
+}
+
+@media (min-width: 768px) {
+  .skeleton-card {
+    display: grid;
+    grid-template-columns: 100px 1fr 140px 120px;
+    align-items: center;
+    column-gap: var(--space-4);
+  }
+
+  .skeleton--title {
+    width: 60%;
+  }
+  .skeleton--assignee {
+    justify-self: end;
+  }
+}

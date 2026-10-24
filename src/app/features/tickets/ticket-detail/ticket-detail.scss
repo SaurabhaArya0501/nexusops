@@ -76,3 +76,23 @@
     }
   }
 }
+
+.ticket-detail--loading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  .skeleton--back {
+    width: 100px;
+  }
+  .skeleton--heading {
+    width: 70%;
+    height: 1.75rem;
+  }
+  .skeleton--line {
+    width: 100%;
+  }
+  .skeleton--line-short {
+    width: 45%;
+  }
+}

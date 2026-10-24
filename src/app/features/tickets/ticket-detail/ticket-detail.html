@@ -1,4 +1,21 @@
-@if (ticket(); as t) {
+@if (isLoading()) {
+  <div class="ticket-detail ticket-detail--loading" role="status" aria-live="polite">
+    <span class="sr-only">Loading ticket</span>
+    <span class="skeleton skeleton--back"></span>
+    <span class="skeleton skeleton--heading"></span>
+    <span class="skeleton skeleton--line"></span>
+    <span class="skeleton skeleton--line"></span>
+    <span class="skeleton skeleton--line skeleton--line-short"></span>
+  </div>
+} @else if (notFound()) {
+  <div class="ticket-detail__missing">
+    <h1>Ticket not found</h1>
+    <p>No ticket exists with id "{{ id() }}".</p>
+    <a routerLink="/tickets">← Back to all tickets</a>
+  </div>
+} @else if (errorMessage(); as message) {
+  <app-error-panel [message]="message" (retry)="reload()" />
+} @else if (ticket(); as t) {
   <article class="ticket-detail">
     <a class="ticket-detail__back" routerLink="/tickets">← All tickets</a>
 
@@ -53,10 +70,4 @@
       </div>
     </aside>
   </article>
-} @else {
-  <div class="ticket-detail__missing">
-    <h1>Ticket not found</h1>
-    <p>No ticket exists with id "{{ id() }}".</p>
-    <a routerLink="/tickets">← Back to all tickets</a>
-  </div>
 }

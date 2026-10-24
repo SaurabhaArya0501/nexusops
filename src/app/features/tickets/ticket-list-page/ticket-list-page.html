@@ -44,14 +44,48 @@
       }
     </select>
   </label>
+  <button
+    type="button"
+    class="tickets-toolbar__refresh"
+    [disabled]="store.isRefreshing()"
+    [attr.aria-busy]="store.isRefreshing()"
+    (click)="store.reload()"
+  >
+    {{ store.isRefreshing() ? 'Refreshing…' : 'Refresh' }}
+  </button>
 </div>
-<ul class="ticket-list">
-  @for (ticket of store.visibleTickets(); track ticket.id) {
-    <app-ticket-card [ticket]="ticket" [showStatus]="store.statusFilter() === 'all'" />
-  } @empty {
-    <div class="tickets-empty">
-      <p>No tickets match your filters.</p>
-      <button type="button" (click)="store.clearFilters()">Clear filters</button>
-    </div>
+
+@if (store.isInitialLoading()) {
+  <ul class="ticket-list" role="status" aria-live="polite" aria-busy="true">
+    <span class="sr-only">Loading tickets</span>
+    @for (i of skeletonRows; track i) {
+      <app-ticket-card-skeleton />
+    }
+  </ul>
+} @else if (store.errorMessage(); as message) {
+  @if (store.isStale()) {
+    <app-error-panel variant="banner" [message]="message" (retry)="store.reload()" />
+    <ul class="ticket-list" [attr.aria-busy]="store.isRefreshing()">
+      @for (ticket of store.visibleTickets(); track ticket.id) {
+        <app-ticket-card [ticket]="ticket" [showStatus]="store.statusFilter() === 'all'" />
+      }
+    </ul>
+  } @else {
+    <app-error-panel [message]="message" (retry)="store.reload()" />
   }
-</ul>
+} @else if (store.total() === 0) {
+  <div class="tickets-empty">
+    <p>No tickets yet.</p>
+  </div>
+} @else {
+  <ul class="ticket-list">
+    @for (ticket of store.visibleTickets(); track ticket.id) {
+      <app-ticket-card [ticket]="ticket" [showStatus]="store.statusFilter() === 'all'" />
+    } @empty {
+      <div class="tickets-empty">
+        <p>No tickets match your filters.</p>
+        <button type="button" (click)="store.clearFilters()">Clear filters</button>
+      </div>
+    }
+  </ul>
+}
